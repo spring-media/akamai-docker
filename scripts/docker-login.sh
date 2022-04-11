@@ -31,7 +31,8 @@ source ./scripts/env.sh
 # operations enforced on anonymous builds.
 #########
 
-export DOCKER_USERNAME="${DOCKER_USERNAME:?DOCKER_USERNAME must be set}"
-export DOCKER_PASSWORD="${DOCKER_PASSWORD:?DOCKER_PASSWORD must be set}"
-echo "${DOCKER_PASSWORD}" |
-  docker login -u "${DOCKER_USERNAME}" --password-stdin ${DOCKER_REGISTRY}
+#fki export DOCKER_USERNAME="${DOCKER_USERNAME:?DOCKER_USERNAME must be set}"
+#fki export DOCKER_PASSWORD="${DOCKER_PASSWORD:?DOCKER_PASSWORD must be set}"
+#fki echo "${DOCKER_PASSWORD}" |
+#fki docker login -u "${DOCKER_USERNAME}" --password-stdin ${DOCKER_REGISTRY}
+docker login

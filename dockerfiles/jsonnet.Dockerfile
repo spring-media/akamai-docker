@@ -16,7 +16,7 @@
 # BUILD ARGS
 #########
 
-ARG BASE=akamai/base
+ARG BASE=fkielingas/akamai-base
 
 #####################
 # JSONNET BUILDER

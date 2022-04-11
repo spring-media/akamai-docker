@@ -53,36 +53,51 @@ build_img() {
     labels+=("--label=org.label-schema.vcs-ref=$(git rev-parse --short HEAD)}")
   fi
 
+  # cleanup build env if there artefacts from last build
+  if [ `docker buildx ls | grep akamai-images | wc -l` != 0 ]; then
+    docker buildx rm akamai-images
+    fi
+  # create and bootstrap build env
+  docker buildx create --name akamai-images --driver-opt network=host --use
+  docker buildx inspect --bootstrap akamai-images
   if [ "$#" == 2 ]; # $1=image, $2=Dockerfile
   then
-    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" .
+    # build, tag and push images for arm64 and amd64 
+    docker buildx build --platform linux/arm64,linux/amd64 --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --push .
   elif [ "$#" == 3 ]; # ..., $3=Base image
   then
-    docker build --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3 .
+    # build, tag and push images for arm64 and amd64 
+    docker buildx build --platform linux/arm64,linux/amd64 --force-rm -t $1 -f $2 ${DOCKER_BUILD_EXTRA_ARGS} "${labels[@]}" --build-arg BASE=$3 --push .
   fi
+  # cleanup build env after successfully build
+  docker buildx rm akamai-images
 }
 
 build_chain() {
   info $(chalk 1\;93m "build_chain: $@")
   if [ "$#" == 1 ];
   then
-    build_img akamai/$1 dockerfiles/$1.Dockerfile
+#    build_img akamai/$1 dockerfiles/$1.Dockerfile
+    build_img fkielingas/akamai-$1 dockerfiles/$1.Dockerfile
   else
     local base=$1; shift
     while [ "$#" -gt 1 ];
     do
       local tag=$1; shift
+      echo 1
       build_img akamai/$tag-chain dockerfiles/$tag.Dockerfile akamai/$base
       base=$tag-chain
     done
-    build_img akamai/$1 dockerfiles/$1.Dockerfile akamai/$base
+    echo 2
+    build_img fkielingas/akamai-$1 dockerfiles/$1.Dockerfile akamai/$base
   fi
 
   # Tag image
-  for tag in ${DOCKER_TAG};
-  do
-    docker tag "akamai/$1" "akamai/$1:$tag"
-  done
+ # for tag in ${DOCKER_TAG};
+ # do
+#    docker tag "akamai/$1" "akamai/$1:$tag"
+#    docker tag "fkielingas/akamai-$1" "fkielingas/akamai-$1:$tag"
+  #done
 }
 
 build_chain $@

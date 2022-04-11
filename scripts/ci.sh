@@ -30,5 +30,5 @@ source ./scripts/env.sh
 
 ./scripts/docker-login.sh
 ./scripts/build-all.sh
-./scripts/test.sh
-./scripts/push-all.sh
+#./scripts/test.sh
+#./scripts/push-all.sh

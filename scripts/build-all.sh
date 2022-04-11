@@ -40,7 +40,11 @@ variants() {
 # BUILD ALL
 #########
 
+#docker buildx create --name akamai-docker --driver-opt network=host --use
+#docker buildx inspect --bootstrap
 variants | while read chain;
 do
   ./scripts/build-chain.sh "$chain"
+  #echo $chain
 done
+#docker buildx rm akamai-docker
