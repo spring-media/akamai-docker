@@ -45,6 +45,5 @@ variants() {
 variants | while read chain;
 do
   ./scripts/build-chain.sh "$chain"
-  #echo $chain
 done
 #docker buildx rm akamai-docker

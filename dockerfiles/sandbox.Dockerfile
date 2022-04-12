@@ -50,6 +50,7 @@ FROM $BASE
 RUN apk add --no-cache nodejs openjdk8-jre-base libc6-compat gcompat nss
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV AKAMAI_CLI_CACHE_PATH=${AKAMAI_CLI_HOME}/.akamai-cli/cache
 
 # workaround
 RUN touch $JAVA_HOME/bin/javac

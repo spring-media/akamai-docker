@@ -78,18 +78,22 @@ build_chain() {
   if [ "$#" == 1 ];
   then
 #    build_img akamai/$1 dockerfiles/$1.Dockerfile
+    echo foo bar
     build_img fkielingas/akamai-$1 dockerfiles/$1.Dockerfile
   else
     local base=$1; shift
     while [ "$#" -gt 1 ];
     do
       local tag=$1; shift
-      echo 1
-      build_img akamai/$tag-chain dockerfiles/$tag.Dockerfile akamai/$base
+      echo foo
+      #exit
+      #build_img akamai/$tag-chain dockerfiles/$tag.Dockerfile akamai/$base
+      build_img fkielingas/akamai-$tag-chain dockerfiles/$tag.Dockerfile fkielingas/akamai-$base
       base=$tag-chain
     done
-    echo 2
-    build_img fkielingas/akamai-$1 dockerfiles/$1.Dockerfile akamai/$base
+    echo bar
+    #build_img fkielingas/akamai-$1 dockerfiles/$1.Dockerfile akamai/$base
+    build_img fkielingas/akamai-$1 dockerfiles/$1.Dockerfile fkielingas/akamai-$base
   fi
 
   # Tag image
@@ -100,4 +104,5 @@ build_chain() {
   #done
 }
 
+echo $@
 build_chain $@

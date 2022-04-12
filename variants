@@ -19,39 +19,41 @@
 
 # base: shared base image for all variants
 # DO NOT DELETE this line
-base
+#fki base
 
 # cli: base + akamai cli wrapper
 # DO NOT DELETE this line
-base cli
+#fki base cli
 
 # specialized variants
-cli adaptive-acceleration
-cli api-gateway
-cli appsec
-cli cloudlets
-cli cps
-cli dns
-cli eaa
-cli edgeworkers
-cli firewall
-cli image-manager
-cli jsonnet
-cli property-manager
-property-manager onboard
-cli property
-cli purge
-cli sandbox
-cli visitor-prioritization
-cli terraform-cli
-cli etp
-cli gtm
+#fki cli adaptive-acceleration
+#fki cli api-gateway
+#fki cli appsec
+#fki cli cloudlets
+#fki cli cps
+#fki cli dns
+#fki cli eaa
+#fki cli edgeworkers
+#fki cli firewall
+#fki cli image-manager
+#fki cli jsonnet
+#fki cli property-manager
+#fki property-manager onboard
+#cli property
+#fki cli purge
+#fki cli sandbox
+#fki cli visitor-prioritization
+#fki cli terraform-cli
+#fki cli etp
+#fki cli gtm
 
 # Non-Akamai CLI utilities
 # httpie + edgegrid
-base httpie
+#fki base httpie
 # terraform + akamai provider
-base terraform
+#fki base terraform
 
 # interactive variant with all the things, for experimentation.
-cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property property-manager onboard purge sandbox terraform terraform-cli visitor-prioritization etp gtm shell
+#cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property property-manager onboard purge sandbox terraform terraform-cli visitor-prioritization etp gtm shell
+#fki cli adaptive-acceleration api-gateway appsec cloudlets cps dns eaa edgeworkers firewall httpie image-manager jsonnet property-manager onboard purge sandbox visitor-prioritization etp gtm shell
+visitor-prioritization etp gtm shell
